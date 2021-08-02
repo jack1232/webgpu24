@@ -1,11 +1,9 @@
-# Step-by-Step WebGPU Graphics Programming (16) 
-## Create a torus Wireframe
+# Step-by-Step WebGPU Graphics Programming (24) 
+## Create simple 3D surfaces
 
-This is the source code for the 16th part of a series YouTube videos on step-by-step WebGPU graphics programming.
+This is the source code for the 24th part of a series YouTube videos on step-by-step WebGPU graphics programming.
 
-This sample WebGPU app creates a torus wireframe. The output from the app is shown in the following image.
-
-![image01](dist/assets/image01.png)
+This sample WebGPU app builds 3D simple surfaces. 
 
 ## Link for All Source Code Used in the WebGPU Step-By-Step Video Series:
 
