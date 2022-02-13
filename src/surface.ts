@@ -167,15 +167,21 @@ export const CreateSurfaceWithColormap = async (vertexData: Float32Array, normal
     const renderPassDescription = {
         colorAttachments: [{
             view: textureView,
-            loadValue: { r: 0.2, g: 0.247, b: 0.314, a: 1.0 }, //background color
+            clearValue: { r: 0.2, g: 0.247, b: 0.314, a: 1.0 }, //background color
+            loadValue: { r: 0.2, g: 0.247, b: 0.314, a: 1.0 }, 
+            loadOp: 'clear',
             storeOp: 'store'
         }],
         depthStencilAttachment: {
             view: depthTexture.createView(),
+            depthClearValue: 1.0,
             depthLoadValue: 1.0,
             depthStoreOp: "store",
+            stencilClearValue: 0,
             stencilLoadValue: 0,
-            stencilStoreOp: "store"
+            stencilStoreOp: "store",
+            depthLoadOp: 'clear',
+            stencilLoadOp: 'clear'
         }
     };
     
@@ -211,7 +217,7 @@ export const CreateSurfaceWithColormap = async (vertexData: Float32Array, normal
         renderPass.setVertexBuffer(2, colorBuffer);
         renderPass.setBindGroup(0, uniformBindGroup);       
         renderPass.draw(numberOfVertices);
-        renderPass.endPass();
+        renderPass.end();
 
         device.queue.submit([commandEncoder.finish()]);
     }

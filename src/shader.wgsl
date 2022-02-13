@@ -58,12 +58,12 @@ fn fs_main(in:Output) ->  @location(0) vec4<f32> {
     var specular: f32 = light_uniforms.params[2] * pow(max(dot(N, H),0.0), light_uniforms.params[3]);
 
     // back side
-    if(f32(light_uniforms.param2[0]) == 1){
-        difuse = difuse + light_uniforms.params[1] * max(dot(-N, L), 0.0);
+    if(i32(light_uniforms.param2[0]) == 1){
+        diffuse = diffuse + light_uniforms.params[1] * max(dot(-N, L), 0.0);
         specular = specular +  light_uniforms.params[2] * pow(max(dot(-N, H),0.0), light_uniforms.params[3]);
     }
 
     let ambient:f32 = light_uniforms.params[0];               
-    let final_color = light_uniforms.color*(ambient + diffuse) + light_uniforms.specular_color * specular; 
+    let final_color = in.v_color*(ambient + diffuse) + light_uniforms.specular_color.rgb * specular; 
     return vec4<f32>(final_color.rgb, 1.0);
 }
