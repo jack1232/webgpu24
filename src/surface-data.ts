@@ -46,9 +46,9 @@ export const SimpleSurfaceData = (f:any, xmin:number, xmax:number, zmin:number, 
             p2 = pts[i+1][j+1];
             p3 = pts[i+1][j];
             let data = CreateQuad(p0, p1, p2, p3, cmin, cmax, colormapName);                            
-            vertex.push(data.vertex.flat());
-            normal.push(data.normal.flat());
-            color.push(data.color.flat());
+            vertex.push(data.vertex);
+            normal.push(data.normal);
+            color.push(data.color);
         }
     }        
 
@@ -73,30 +73,30 @@ const CreateQuad = (p0:vec3, p1:vec3, p2:vec3, p3:vec3, ymin:number, ymax:number
     let ca:vec3, db:vec3, cp:vec3;
     
     //vertex data
-    vertex.push([
+    vertex.push(
         p0[0],p0[1],p0[2],p1[0],p1[1],p1[2],p2[0],p2[1],p2[2],
         p2[0],p2[1],p2[2],p3[0],p3[1],p3[2],p0[0],p0[1],p0[2]
-    ]);
+    );
 
    //normal data
    ca = vec3.subtract(vec3.create(), p2, p0);
    db = vec3.subtract(vec3.create(), p3, p1);
    cp = vec3.cross(vec3.create(), ca, db);
    vec3.normalize(cp,cp);
-   normal.push([
+   normal.push(
        cp[0],cp[1],cp[2],cp[0],cp[1],cp[2],cp[0],cp[1],cp[2],
        cp[0],cp[1],cp[2],cp[0],cp[1],cp[2],cp[0],cp[1],cp[2]
-   ]);
+   );
 
    //color data
    let c0 = AddColors(colormapName, ymin, ymax, p0[1]);
    let c1 = AddColors(colormapName, ymin, ymax, p1[1]);
    let c2 = AddColors(colormapName, ymin, ymax, p2[1]);
    let c3 = AddColors(colormapName, ymin, ymax, p3[1]);
-   color.push([
+   color.push(
        c0[0],c0[1],c0[2],c1[0],c1[1],c1[2],c2[0],c2[1],c2[2],
        c2[0],c2[1],c2[2],c3[0],c3[1],c3[2],c0[0],c0[1],c0[2]
-   ]);
+   );
 
    return{
        vertex,
