@@ -98,17 +98,19 @@ export const InitGPU = async () => {
     const device = await adapter?.requestDevice() as GPUDevice;
     const context = canvas.getContext('webgpu') as GPUCanvasContext;
 
-    const devicePixelRatio = window.devicePixelRatio || 1;
+    /*const devicePixelRatio = window.devicePixelRatio || 1;
     const size = [
         canvas.clientWidth * devicePixelRatio,
         canvas.clientHeight * devicePixelRatio,
-    ];
-    const format = context.getPreferredFormat(adapter!);
+    ];*/
+    //const format = context.getPreferredFormat(adapter!);
+    const format = navigator.gpu.getPreferredCanvasFormat();
 
     context.configure({
         device: device,
         format: format,
-        size: size
+        //size: size,
+        alphaMode:'opaque'
     });
     return{ device, canvas, format, context };
 };
@@ -116,7 +118,7 @@ export const InitGPU = async () => {
 export const CheckWebGPU = () => {
     let result = 'Great, your current browser supports WebGPU!';
     if (!navigator.gpu) {
-            result = `Your current browser does not support WebGPU! Make sure you are on a system 
+        result = `Your current browser does not support WebGPU! Make sure you are on a system 
             with WebGPU enabled. Currently, WebGPU is supported in  
             <a href="https://www.google.com/chrome/canary/">Chrome canary</a>
             with the flag "enable-unsafe-webgpu" enabled. See the 

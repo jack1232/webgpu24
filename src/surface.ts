@@ -32,6 +32,7 @@ export const CreateSurfaceWithColormap = async (vertexData: Float32Array, normal
     const colorBuffer = CreateGPUBuffer(device, colorData);
  
     const pipeline = device.createRenderPipeline({
+        layout: 'auto',
         vertex: {
             module: device.createShaderModule({                    
                 code: shader
@@ -168,20 +169,17 @@ export const CreateSurfaceWithColormap = async (vertexData: Float32Array, normal
         colorAttachments: [{
             view: textureView,
             clearValue: { r: 0.2, g: 0.247, b: 0.314, a: 1.0 }, //background color
-            loadValue: { r: 0.2, g: 0.247, b: 0.314, a: 1.0 }, 
             loadOp: 'clear',
             storeOp: 'store'
         }],
         depthStencilAttachment: {
             view: depthTexture.createView(),
             depthClearValue: 1.0,
-            depthLoadValue: 1.0,
-            depthStoreOp: "store",
-            stencilClearValue: 0,
-            stencilLoadValue: 0,
-            stencilStoreOp: "store",
             depthLoadOp: 'clear',
-            stencilLoadOp: 'clear'
+            depthStoreOp: "store",
+            /*stencilClearValue: 0,
+            stencilStoreOp: "store",          
+            stencilLoadOp: 'clear'*/
         }
     };
     
